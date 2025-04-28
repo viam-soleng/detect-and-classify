@@ -154,18 +154,11 @@ func (svc *myVisionSvc) Classifications(ctx context.Context, img image.Image, n 
 }
 
 // ClassificationsFromCamera can be implemented to extend functionality but returns unimplemented currently.
-func (svc *myVisionSvc) ClassificationsFromCamera(ctx context.Context, cameraName string, n int, extra map[string]interface{}) (classification.Classifications, error) {
-	// gets the stream from a camera
-	stream, err := svc.camera.Stream(context.Background())
+func (svc *myVisionSvc) ClassificationsFromCamera(ctx context.Context, cameraName string, n int, _ map[string]interface{}) (classification.Classifications, error) {
+	image, err := camera.DecodeImageFromCamera(ctx, "", nil, svc.camera)
 	if err != nil {
 		return nil, err
 	}
-	// gets an image from the camera stream
-	image, release, err := stream.Next(context.Background())
-	if err != nil {
-		return nil, err
-	}
-	defer release()
 	images, err := svc.cropDetections(ctx, image)
 	if err != nil {
 		return nil, err
@@ -181,18 +174,11 @@ func (svc *myVisionSvc) Detections(ctx context.Context, image image.Image, extra
 	return svc.detect(ctx, images)
 }
 
-func (svc *myVisionSvc) DetectionsFromCamera(ctx context.Context, camera string, extra map[string]interface{}) ([]objectdetection.Detection, error) {
-	// gets the stream from a camera
-	stream, err := svc.camera.Stream(context.Background())
+func (svc *myVisionSvc) DetectionsFromCamera(ctx context.Context, cameraName string, _ map[string]interface{}) ([]objectdetection.Detection, error) {
+	image, err := camera.DecodeImageFromCamera(ctx, "", nil, svc.camera)
 	if err != nil {
 		return nil, err
 	}
-	// gets an image from the camera stream
-	image, release, err := stream.Next(context.Background())
-	if err != nil {
-		return nil, err
-	}
-	defer release()
 	images, err := svc.cropDetections(ctx, image)
 	if err != nil {
 		return nil, err
