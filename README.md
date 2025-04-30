@@ -23,18 +23,17 @@ The Viam Detect and Classify Vision Service (`visionsvc`) is a specialized modul
 Dependencies are implicit.
 
 Sample Configuration Attributes:
+
 ```json
 {
   "camera": "camera",
   "detector_service": "object-detector",
   "detector_confidence": 0.5,
-  "detector_valid_labels": [
-    "label"
-  ],
-  "max_detections": 5,             
-  "padding": 30,                
+  "detector_valid_labels": ["label"],
+  "max_detections": 5,
+  "padding": 30,
   "vision_service": "classifier or detector vision service",
-  "log_images": false,             
+  "log_images": false,
   "images_path": "<- YOUR PATH ->"
 }
 ```
