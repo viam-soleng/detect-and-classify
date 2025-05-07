@@ -4,8 +4,8 @@ go 1.23.8
 
 require (
 	github.com/pkg/errors v0.9.1
-	go.viam.com/rdk v0.73.0
-	go.viam.com/utils v0.1.141
+	go.viam.com/rdk v0.74.0
+	go.viam.com/utils v0.1.142
 )
 
 require (
